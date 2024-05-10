@@ -22,7 +22,11 @@ async function getPokemon(pokemonName) {
 }
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', {error: null});
+});
+
+app.get('/pcBox', (req, res) => {
+  res.render('pcBox');
 });
 
 app.post('/displayPokemon', async (req, res) => {
@@ -31,8 +35,13 @@ app.post('/displayPokemon', async (req, res) => {
     console.log(pokemon);
     let data = await getPokemon(pokemon); 
     console.log(data);
-    let imgSrc = `https://img.pokemondb.net/artwork/large/${pokemon}.jpg`;
 
+    if (!data) {
+      // If Pokémon doesn't exist, return to the index page with an error message
+      return res.render('index', { error: `Pokémon "${pokemon}" not found. Please try again.` });
+    }
+    
+    let imgSrc = `https://img.pokemondb.net/artwork/large/${pokemon}.jpg`;
 
 
     const pokemonTypesArr = [];
@@ -82,7 +91,7 @@ app.post('/displayPokemon', async (req, res) => {
       console.log("Don't Catch Pokémon!");
     } 
 
-    res.render('index');
+    res.render('index', {error: null});
   });
 
 app.listen(port, () => {

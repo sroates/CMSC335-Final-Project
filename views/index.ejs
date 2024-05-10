@@ -5,6 +5,8 @@
 </head>
 <body>
 
+
+
   <form id = "choosePokemon" action="/displayPokemon" method="POST">
 
     <label for="pokemon">Enter Pokemon Name: </label>
@@ -12,6 +14,24 @@
     <button type="submit">Submit</button>
   </form>
 
-  <div id="display"></div>
+
+  <% if (error) { %>
+    <div style="color: red;">
+      <strong><%= error %></strong>
+    </div>
+  <% } %>
+
+  <div id="PCBox">
+
+    <h2>PC BOX</h2>
+
+    View caught pokemon: <a href="/pcBox">Access pokemon storage</a>
+
+  </div>
+
+
+  
+  
+
 </body>
 </html>
